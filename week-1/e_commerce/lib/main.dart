@@ -1,7 +1,6 @@
-
-import 'package:e_commerce/Screens/product_list.dart';
-
 import 'package:flutter/material.dart';
+
+import 'package:e_commerce/routes.dart';
 
 void main() {
   runApp(const Ecommerce());
@@ -12,35 +11,14 @@ class Ecommerce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      routerConfig: router,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),
-      home: const EcommercePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class EcommercePage extends StatefulWidget {
-  const EcommercePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<EcommercePage> createState() => _EcommercePageState();
-}
-
-class _EcommercePageState extends State<EcommercePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ProductList()
-     
     );
   }
 }

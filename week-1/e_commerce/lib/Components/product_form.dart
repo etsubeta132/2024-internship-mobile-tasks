@@ -2,13 +2,24 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
-
-import 'package:e_commerce/Screens/product_list.dart';
-
+import 'package:go_router/go_router.dart';
 
 class ProductForm extends StatefulWidget {
-  const ProductForm({super.key});
+  final String initialName;
+  final String initialCategory;
+  final double initialPrice;
+  final String initialDescription;
+  
+
+  const ProductForm({
+    super.key,
+    this.initialName = '',
+    this.initialCategory = '',
+    this.initialPrice = 0.0,
+    this.initialDescription = '',
+    
+  });
+
 
   @override
   _ProductFormState createState() => _ProductFormState();
@@ -17,10 +28,19 @@ class ProductForm extends StatefulWidget {
 class _ProductFormState extends State<ProductForm> {
   File? _image;
   final _picker = ImagePicker();
-  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _catagoryController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers with initial values
+    _nameController.text = widget.initialName;
+    _catagoryController.text = widget.initialCategory;
+    _priceController.text = widget.initialPrice.toString();
+    _descriptionController.text = widget.initialDescription;
+  }
 
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -39,7 +59,7 @@ class _ProductFormState extends State<ProductForm> {
           color: Colors.blue,
           icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () {
-            Navigator.pop(context);
+            GoRouter.of(context).goNamed('productList');
           },
         ),
         title: const Text('Add Product'),
@@ -83,12 +103,11 @@ class _ProductFormState extends State<ProductForm> {
                 const Text('name: '),
                 const SizedBox(width: 16),
                 TextField(
-                  controller: _titleController,
+                  controller: _nameController,
                   decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 227, 224, 224),
-                    border: InputBorder.none
-                  ),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 227, 224, 224),
+                      border: InputBorder.none),
                 ),
               ],
             ),
@@ -101,10 +120,9 @@ class _ProductFormState extends State<ProductForm> {
                 TextField(
                   controller: _catagoryController,
                   decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 227, 224, 224),
-                    border: InputBorder.none
-                  ),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 227, 224, 224),
+                      border: InputBorder.none),
                 ),
               ],
             ),
@@ -135,11 +153,10 @@ class _ProductFormState extends State<ProductForm> {
                 TextField(
                   controller: _descriptionController,
                   decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 227, 224, 224),
-                    border: InputBorder.none
-                  ),
-                  maxLines: 3,
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 227, 224, 224),
+                      border: InputBorder.none),
+                  maxLines: 5,
                 ),
               ],
             ),
@@ -153,17 +170,14 @@ class _ProductFormState extends State<ProductForm> {
                       borderRadius: BorderRadius.circular(8),
                     )),
                 onPressed: () {
-                  setState(() {
-                    final String title = _titleController.text;
-                    final String catagory = _catagoryController.text;
-                    final String description = _descriptionController.text;
-                    final double price =
-                        double.tryParse(_priceController.text) ?? 0;
-                  });
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProductList()));
+                  // setState(() {
+                  //   final String title = _titleController.text;
+                  //   final String catagory = _catagoryController.text;
+                  //   final String description = _descriptionController.text;
+                  //   final double price =
+                  //       double.tryParse(_priceController.text) ?? 0;
+                  // });
+                  GoRouter.of(context).goNamed('productList');
                 },
                 child: const Text('ADD')),
             const SizedBox(height: 16),
@@ -175,13 +189,14 @@ class _ProductFormState extends State<ProductForm> {
                         borderRadius: BorderRadius.circular(8),
                         side: const BorderSide(color: Colors.red))),
                 onPressed: () {
-                  setState(() {
-                    final String title = _titleController.text;
-                    final String category = _catagoryController.text;
-                    final String description = _descriptionController.text;
-                    final double price =
-                        double.tryParse(_priceController.text) ?? 0;
-                  });
+                  // setState(() {
+                  //   final String title = _titleController.text;
+                  //   final String category = _catagoryController.text;
+                  //   final String description = _descriptionController.text;
+                  //   final double price =
+                  //       double.tryParse(_priceController.text) ?? 0;
+                  // });
+                  GoRouter.of(context).goNamed('productList');
                 },
                 child: const Text('DELETE')),
           ],
