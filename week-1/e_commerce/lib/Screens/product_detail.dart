@@ -1,5 +1,5 @@
-import 'package:e_commerce/Components/curved_rec_button.dart';
-import 'package:e_commerce/Models/product.dart';
+import 'package:e_commerce/Widgets/curved_rec_button.dart';
+import 'package:e_commerce/Widgets/product.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

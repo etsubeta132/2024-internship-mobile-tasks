@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:e_commerce/Components/product_form.dart';
+import 'package:e_commerce/Widgets/product_form.dart';
 import 'package:e_commerce/Screens/product_detail.dart';
 import 'package:e_commerce/Screens/product_list.dart';
 
