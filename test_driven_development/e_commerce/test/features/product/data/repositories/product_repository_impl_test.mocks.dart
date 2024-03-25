@@ -141,10 +141,10 @@ class MockProductLocalDataSource extends _i1.Mock
       ) as _i4.Future<List<_i2.ProductModel>>);
 
   @override
-  _i4.Future<void> catchLocalProducts(List<_i2.ProductModel>? products) =>
+  _i4.Future<void> cacheLocalProducts(List<_i2.ProductModel>? products) =>
       (super.noSuchMethod(
         Invocation.method(
-          #catchLocalProducts,
+          #cacheLocalProducts,
           [products],
         ),
         returnValue: _i4.Future<void>.value(),

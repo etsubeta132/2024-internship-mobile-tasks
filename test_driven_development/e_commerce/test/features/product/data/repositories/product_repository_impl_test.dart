@@ -10,11 +10,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-// import 'product_repository_impl_test.mocks.dart';
+import 'product_repository_impl_test.mocks.dart';
 
-@GenerateMocks([ProductRemoteDataSource])
-@GenerateMocks([ProductLocalDataSource])
-@GenerateMocks([NetworkInfo])
+@GenerateMocks([ProductRemoteDataSource, ProductLocalDataSource, NetworkInfo])
 void main() {
   final mockRemoteDataSource = MockProductRemoteDataSource();
   final mockLocalDataSource = MockProductLocalDataSource();
@@ -48,15 +46,13 @@ void main() {
     final tProductModelList = [
       ProductModel(
           id: tid,
-          imageUrl: "",
+          title: "title",
+          image: "",
           rating: 0.0,
           price: 0.0,
-          name: "name",
           category: "category",
           description: "description")
     ];
-
-    // final tProduct = tProductModelList;
 
     runTestOnline(() {
       test(
@@ -87,7 +83,8 @@ void main() {
 
         // assert
         verify(mockRemoteDataSource.getProducts());
-        verify(mockLocalDataSource.catchLocalProducts(tProductModelList));
+        verify(mockLocalDataSource.cacheLocalProducts(tProductModelList));
+        expect(result, Right(tProductModelList));
       },
     );
 
@@ -107,7 +104,6 @@ void main() {
       },
     );
   });
-
 
 //   group("getProducts ", () {
 //     const tid = '25131570-9733-4d42-8ff1-56bd8d2a8e9a';

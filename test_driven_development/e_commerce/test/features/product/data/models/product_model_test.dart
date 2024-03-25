@@ -8,10 +8,10 @@ import '../../../../fixtures/fixture_reader.dart';
 void main() {
   final tProductModel = ProductModel(
       id:'25131570-9733-4d42-8ff1-56bd8d2a8e9a',
-      imageUrl: '',
+      title: 'title',
+      image: '',
       rating: 0.0,
       price: 0.0,
-      name: 'name',
       category: 'category',
       description: 'description');
 
@@ -40,11 +40,11 @@ void main() {
 
       // assert
       final expectedMap = {
-        "id":"25131570-9733-4d42-8ff1-56bd8d2a8e9a",
-        "imageUrl": "",
-        "rating": "0.0",
+        "_id":"25131570-9733-4d42-8ff1-56bd8d2a8e9a",
+        "title": "title",
+        "image": "",
+        "rating":  {'rate': 0, 'count': 0},
         "price": "0.0",
-        "name": "name",
         "category": "category",
         "description": "description"
       };

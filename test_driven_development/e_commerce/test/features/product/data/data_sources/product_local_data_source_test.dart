@@ -8,8 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:e_commerce/features/product/data/data_sources/product_local_data_source.dart';
 import '../../../../fixtures/fixture_reader.dart';
-import 'product_local_data_source_test.mocks.dart';
+// import 'product_local_data_source_test.mocks.dart';
 import 'package:e_commerce/core/error/exceptions.dart';
+
+import 'product_local_data_source_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences])
 void main() {
@@ -19,7 +21,7 @@ void main() {
   mockSharedPreferences = MockSharedPreferences();
   dataSource =
       ProductLocalDataSourceImpl(sharedPreferences: mockSharedPreferences);
-  group('getLocalProducts', () {
+  group('getLocalProducts', (){
     test('should return a list of ProductModel from SharedPreferences',
         () async {
       final jsonString = fixture('cathed_product.json');
@@ -52,31 +54,33 @@ void main() {
 
   group(
     "cachedProduct",
-    () async {
+    () {
       final productList = [
         ProductModel(
           id: '25131570-9733-4d42-8ff1-56bd8d2a8e9a',
-          imageUrl: "",
+          title: "",
+          image: "",
           rating: 0,
           price: 0,
-          name: "",
           category: "",
           description: "",
         ),
       ];
       test(
         "should call sharedpreferences to  cache the data ",
-        () {
+        () async {
           // arrange
+          final jsonString =
+              json.encode(productList.map((product) => product.toJson()).toList());
+          when(mockSharedPreferences.setString('CACHED_PRODUCT', jsonString))
+              .thenAnswer((_) async => true);
 
           // act
           dataSource.cacheLocalProducts(productList);
 
-          final List<Map<String, dynamic>> jsonList =
-              productList.map((product) => product.toJson()).toList();
-          final value = json.encode(jsonList);
 
-          verify(mockSharedPreferences.setString('CACHED_PRODUCT', value));
+
+          verify(mockSharedPreferences.setString('CACHED_PRODUCT', jsonString));
         },
       );
     },

@@ -11,6 +11,10 @@ abstract class ProductLocalDataSource {
   /// Throws a [NoLocalDataException] if no cached data is present.
   Future<List<ProductModel>> getLocalProducts();
 
+   /// cache [ProductModel] when the user has
+  /// good  internet connection.
+  ///
+  /// Throws a [CacheException] if can't
   Future<void> cacheLocalProducts(List<ProductModel> products);
 }
 
@@ -23,7 +27,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   Future<List<ProductModel>> getLocalProducts() async {
     final jsonString = sharedPreferences.getString('CACHED_PRODUCT');
     if (jsonString != null) {
-      final List<dynamic> jsonList = json.decode(jsonString!);
+      final List<dynamic> jsonList = json.decode(jsonString);
 
       return jsonList.map((json) => ProductModel.fromJson(json)).toList();
     } else {

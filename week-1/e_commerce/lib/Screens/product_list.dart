@@ -15,27 +15,27 @@ class ProductList extends StatelessWidget {
     List<Product> products = [
       const Product(
         imageUrl:
-            'https://s3-alpha-sig.figma.com/img/005f/a4d5/e74cfc63b04b98f4bd9fd3c66b91c014?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lNXsWS5tmHBRRiHa5owwbmPDZ8itM9sxsHd0rQpEjYqjEoOddPR2sPUhNDfnzDMCHpVUJmZ4zhr8V0YP9NYi3aKgVhtvydwCfB1zkUvIP4row~OFLcH1FSMVe6cO4jRkkDThtIEpKn2KrW0MGbwKtMB7j9Wwwr291SMR64gHb4Lg-6~rmaGCnENhBHsMrlTQ8r6DTmb~bDDA4qqVz5wJtFD3-KsGX91VFhFNO3-wVP4pQUjZsKwtq0FO~y8eMn9qDnEdJTzlR5P-Pyg82-fqOehtcKYqWFUsqI9jy7txwcQP5fXvpkQHi3XzpRqkfL5~CqrDibHUIiltkAFP7Synvg__',
+        'https://media.istockphoto.com/id/1136422297/photo/face-cream-serum-lotion-moisturizer-and-sea-salt-among-bamboo-leaves.jpg?s=612x612&w=0&k=20&c=mwzWVrDvJTkHlVf-8RL49Hs5xjuv1TrYcBW4DnWVt-0=',
         price: 100,
         rating: 4.5,
         name: 'Product 1',
-        category: "men's shoes",
+        category: "hair care",
         description:
-            "A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance,making them suitable for both formal and casual occasions.",
+            "this hair care product deeply hydrates and strengthens hair, leaving it soft, silky, and irresistibly smooth.",
       ),
       const Product(
         imageUrl:
-            'https://s3-alpha-sig.figma.com/img/005f/a4d5/e74cfc63b04b98f4bd9fd3c66b91c014?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lNXsWS5tmHBRRiHa5owwbmPDZ8itM9sxsHd0rQpEjYqjEoOddPR2sPUhNDfnzDMCHpVUJmZ4zhr8V0YP9NYi3aKgVhtvydwCfB1zkUvIP4row~OFLcH1FSMVe6cO4jRkkDThtIEpKn2KrW0MGbwKtMB7j9Wwwr291SMR64gHb4Lg-6~rmaGCnENhBHsMrlTQ8r6DTmb~bDDA4qqVz5wJtFD3-KsGX91VFhFNO3-wVP4pQUjZsKwtq0FO~y8eMn9qDnEdJTzlR5P-Pyg82-fqOehtcKYqWFUsqI9jy7txwcQP5fXvpkQHi3XzpRqkfL5~CqrDibHUIiltkAFP7Synvg__',
+            'https://media.istockphoto.com/id/1394988455/photo/laptop-with-a-blank-screen-on-a-white-background.jpg?s=612x612&w=0&k=20&c=BXNMs3xZNXP__d22aVkeyfvgJ5T18r6HuUTEESYf_tE=',
         price: 29.99,
         rating: 4.3,
         name: 'Product2',
-        category: "men's shoes",
+        category: "laptop computer",
         description:
             "A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance,making them suitable for both formal and casual occasions.",
       ),
       const Product(
         imageUrl:
-            'https://s3-alpha-sig.figma.com/img/005f/a4d5/e74cfc63b04b98f4bd9fd3c66b91c014?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lNXsWS5tmHBRRiHa5owwbmPDZ8itM9sxsHd0rQpEjYqjEoOddPR2sPUhNDfnzDMCHpVUJmZ4zhr8V0YP9NYi3aKgVhtvydwCfB1zkUvIP4row~OFLcH1FSMVe6cO4jRkkDThtIEpKn2KrW0MGbwKtMB7j9Wwwr291SMR64gHb4Lg-6~rmaGCnENhBHsMrlTQ8r6DTmb~bDDA4qqVz5wJtFD3-KsGX91VFhFNO3-wVP4pQUjZsKwtq0FO~y8eMn9qDnEdJTzlR5P-Pyg82-fqOehtcKYqWFUsqI9jy7txwcQP5fXvpkQHi3XzpRqkfL5~CqrDibHUIiltkAFP7Synvg__',
+        'https://media.istockphoto.com/id/1198863709/photo/skin-and-hair-care-beauty-product-mock-up-lotion-bottle-oil-cream-isolated-on-white-3d-render.jpg?s=612x612&w=0&k=20&c=_0-9dLUohaQrThH0669Ygx3Ar17rX0cRkXy0cEexfQw=',
         price: 29.99,
         rating: 4.8,
         name: 'Product3',
@@ -143,7 +143,7 @@ class ProductList extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).goNamed('addProduct');
           },
-          child: const Icon(Icons.add)),
+          child: const Icon(Icons.add, color: Colors.white)),
     );
   }
 }

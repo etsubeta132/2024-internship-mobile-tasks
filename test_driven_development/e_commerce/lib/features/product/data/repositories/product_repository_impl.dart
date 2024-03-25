@@ -5,7 +5,6 @@ import 'package:e_commerce/features/product/data/data_sources/product_remote_dat
 import 'package:e_commerce/features/product/data/data_sources/product_local_data_source.dart';
 import 'package:e_commerce/features/product/data/models/product_model.dart';
 
-import 'package:e_commerce/features/product/domain/entities/product.dart';
 import 'package:e_commerce/features/product/domain/repositories/product_repository.dart';
 
 import '../../../../core/network/network_info.dart';
@@ -22,7 +21,7 @@ class ProductRepositoryImpl implements ProductRepository {
   });
 
   @override
-  Future<Either<Failure, Product>> getOneProduct(String id) async {
+  Future<Either<Failure, ProductModel>> getOneProduct(String id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteProduct = await remoteDataSource.getOneProduct(id);
@@ -56,7 +55,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, Product>> addProduct(Product product) async {
+  Future<Either<Failure, ProductModel>> addProduct(ProductModel product) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteProduct = await remoteDataSource.addProduct(product);
@@ -84,7 +83,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, Product>> updateProduct(String id) async {
+  Future<Either<Failure, ProductModel>> updateProduct(String id) async {
     if (await networkInfo.isConnected) {
       try {
         final product = await remoteDataSource.updateProduct(id);
