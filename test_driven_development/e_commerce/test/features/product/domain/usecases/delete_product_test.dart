@@ -1,7 +1,7 @@
 
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce/features/product/domain/usecases/delete_product.dart';
-import 'package:e_commerce/features/product/domain/usecases/get_one_product.dart';
+import 'package:e_commerce/features/product/domain/usecases/delete_product_usecase.dart';
+import 'package:e_commerce/features/product/domain/usecases/get_one_product_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 // import 'delete_product_test.mocks.dart';
 
 
-@GenerateMocks([DeleteProduct])
+@GenerateMocks([DeleteProductUseCase])
 void main() {
 
 // group("delete product", () {

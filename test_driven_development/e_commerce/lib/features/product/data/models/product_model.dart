@@ -18,26 +18,26 @@ class ProductModel extends Product {
             category: category,
             description: description);
 
- factory ProductModel.fromJson(Map<String, dynamic> json) {
-      return ProductModel(
-        id: json['_id'],
-        image: json['image'],
-        rating: (json['rating'] != null && json['rating']['rate'] != null) ? double.tryParse((json['rating']['rate']).toString()) ?? 0.0 : 0.0,
-        price: double.tryParse(json['price']) ??  0.0,
-        title: json['title'],
-        category: json['category'],
-        description: json['description'],
-      );
-    }
-
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+ 
+    return ProductModel(
+      id: json['_id'],
+      image: json['image'],
+      rating: json['rating']['rate'],
+      price: json['price'],
+      title: json['title'],
+      category: json['category'],
+      description: json['description'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
-      "_id":id,
+      "_id": id,
       "title": title,
       "image": image,
-      "rating": {'rate':0,'count':0},
-      "price": price.toString(),
+      "rating": {'rate': rating, 'count': 0},
+      "price": price,
       "category": category,
       "description": description
     };

@@ -1,30 +1,50 @@
 part of 'product_bloc.dart';
 
 @immutable
-sealed class ProductEvent {}
+sealed class ProductEvent extends Equatable {}
 
-class GetOneProduct extends ProductEvent {
-  late final String id;
+class GetOneProductEvent extends ProductEvent {
+  final String id;
 
-  GetOneProduct(this.id);
+  GetOneProductEvent(this.id);
+
+  @override
+  List<Object?> get props => [id];
 }
 
-class GetProducts extends ProductEvent {}
+class GetAllProductsEvent extends ProductEvent {
+  GetAllProductsEvent();
 
-class AddProduct extends ProductEvent {
-  final ProductModel productModel;
-
-  AddProduct(this.productModel);
+  @override
+  List<Object?> get props => [];
 }
 
-class UpdateProduct extends ProductEvent {
-  late final String id;
+class AddProductEvent extends ProductEvent {
+  final ProductModel product;
+  final File? imageFile;
 
-  UpdateProduct(this.id);
+  AddProductEvent({required this.product,this.imageFile});
+
+  @override
+  List<Object?> get props => [product, imageFile];
 }
 
-class DeleteProduct extends ProductEvent {
-  late final String id;
+class UpdateProductEvent extends ProductEvent {
+  final String id;
+  final ProductModel product;
+  final File? imageFile;
 
-  DeleteProduct(this.id);
+  UpdateProductEvent({required this.product, required this.id, this.imageFile});
+
+  @override
+  List<Object?> get props => [id, product, imageFile];
+}
+
+class DeleteProductEvent extends ProductEvent {
+  final String id;
+
+  DeleteProductEvent({required this.id});
+
+  @override
+  List<Object?> get props => [id];
 }

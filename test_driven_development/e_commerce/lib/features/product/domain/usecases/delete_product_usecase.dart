@@ -1,24 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/error/failures.dart';
 import 'package:e_commerce/core/usecases/usecase.dart';
-import 'package:e_commerce/features/product/data/models/product_model.dart';
 import 'package:e_commerce/features/product/domain/repositories/product_repository.dart';
 import 'package:equatable/equatable.dart';
 
-class GetOneProduct implements UseCase<ProductModel, Params> {
+class DeleteProductUseCase implements UseCase<String, DeleteParams>{
   final ProductRepository repository;
 
-  GetOneProduct(this.repository);
+  DeleteProductUseCase(this.repository);
 
   @override
-  Future<Either<Failure, ProductModel>> call(Params params) async {
-    return await repository.getOneProduct(params.id);
+  Future<Either<Failure,String>> call(DeleteParams params) async {
+    return await repository.deleteProduct(params.id);
   }
 }
 
-class Params extends Equatable {
+class DeleteParams extends Equatable {
   final String id;
-  const Params({required this.id});
+
+  const DeleteParams({required this.id});
   @override
   List<Object> get props => [id];
 }

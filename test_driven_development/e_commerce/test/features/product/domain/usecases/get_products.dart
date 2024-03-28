@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/features/product/domain/entities/product.dart';
 
-import 'package:e_commerce/features/product/domain/usecases/get_products.dart';
+import 'package:e_commerce/features/product/domain/usecases/get_products_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 // import 'get_products.mocks.dart';
 
-@GenerateMocks([GetProducts])
+@GenerateMocks([GetProductsUseCase])
 void main() {
   // group("get all product", () {
   //   test('returns all product', () async {

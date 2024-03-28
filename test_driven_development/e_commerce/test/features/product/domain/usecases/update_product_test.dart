@@ -1,8 +1,8 @@
-import 'package:e_commerce/features/product/domain/usecases/update_product.dart';
+import 'package:e_commerce/features/product/domain/usecases/update_product_usecase.dart';
 import 'package:mockito/annotations.dart';
 
 
-@GenerateMocks([UpdateProduct])
+@GenerateMocks([UpdateProductUseCase])
 void main() {
 
 }

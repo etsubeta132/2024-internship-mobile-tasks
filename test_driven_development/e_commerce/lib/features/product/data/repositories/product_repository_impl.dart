@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/error/exceptions.dart';
 import 'package:e_commerce/core/error/failures.dart';
@@ -55,10 +57,10 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, ProductModel>> addProduct(ProductModel product) async {
+  Future<Either<Failure, ProductModel>> addProduct(ProductModel product,File? imageFile) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteProduct = await remoteDataSource.addProduct(product);
+        final remoteProduct = await remoteDataSource.addProduct(product,imageFile);
         return Right(remoteProduct);
       } on ServerException {
         return Left(ServerFailure());
@@ -83,11 +85,11 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, ProductModel>> updateProduct(String id) async {
+  Future<Either<Failure, ProductModel>> updateProduct(ProductModel product, String id,File? imageFile) async {
     if (await networkInfo.isConnected) {
       try {
-        final product = await remoteDataSource.updateProduct(id);
-        return Right(product);
+        final updatedProduct = await remoteDataSource.updateProduct(product, id, imageFile);
+        return Right(updatedProduct);
       } on ServerException {
         return Left(ServerFailure());
       }
