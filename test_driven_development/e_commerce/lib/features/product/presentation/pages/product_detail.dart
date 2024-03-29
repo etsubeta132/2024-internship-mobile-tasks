@@ -64,7 +64,8 @@ class _ProductDetailState extends State<ProductDetail> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-          child: Column(
+        padding: const EdgeInsets.all(8),
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
@@ -143,7 +144,10 @@ class _ProductDetailState extends State<ProductDetail> {
           SingleChildScrollView(
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Container(
-                height: 60,
+                constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height/4,
+              ),
+                height: 100,
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Text(
                   // ! product description

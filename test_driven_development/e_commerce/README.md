@@ -3,6 +3,14 @@
 Overview
 This Flutter project implements an Ecommerce feature using Clean Architecture principles to ensure modularity, scalability, and maintainability. The project is structured into different layers, including the data layer, domain layer, and presentation layer, to separate concerns and promote code organization.
 
+# UI
+## OverView Of The UI
+
+![Home Page](assets/home.png?raw=true "ui that shows home page ")
+![Detail page](assets/product_detail.png?raw=true "ui that show product detail")
+![product form }](assets/product_add.png?raw=true "ui fo rthe form to be filled")
+
+
 # Architecture
 Clean Architecture
 The project follows the Clean Architecture pattern, which consists of three main layers:
@@ -45,3 +53,6 @@ To run the project locally, follow these steps:
 2, Open the project in your preferred IDE.
 3, Run flutter pub get to install dependencies.
 4, Run the project using flutter run.
+5, It is better if you run it on android
+
+
