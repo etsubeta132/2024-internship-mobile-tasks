@@ -123,7 +123,7 @@ class _ProductEditState extends State<ProductEdit> {
             color: Colors.blue,
             icon: const Icon(Icons.arrow_back_ios_rounded),
             onPressed: () {
-              GoRouter.of(context).pushNamed('productDetail',
+              GoRouter.of(context).goNamed('productDetail',
                   pathParameters: {"id": widget.productId});
             },
           ),
@@ -138,7 +138,7 @@ class _ProductEditState extends State<ProductEdit> {
               
               // Future.delayed(const Duration(seconds: 50));
 
-              GoRouter.of(context).pushNamed('productDetail',
+              GoRouter.of(context).goNamed('productDetail',
                   pathParameters: {"id": widget.productId});
 
             } else if (state is ProductActionFailer) {

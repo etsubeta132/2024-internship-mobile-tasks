@@ -9,7 +9,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 340,
+        // height: 340,
         width: double.infinity,
         child: Card(
           elevation: 4,

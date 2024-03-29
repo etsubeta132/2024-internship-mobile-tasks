@@ -77,7 +77,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       color: Colors.blue,
                       icon: const Icon(Icons.arrow_back_ios_rounded),
                       onPressed: () {
-                        GoRouter.of(context).pop();
+                        GoRouter.of(context).goNamed('productList');
                       },
                     ),
                   )),

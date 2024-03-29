@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor:  Color.fromRGBO(63, 81, 243, 1),
           shape: const CircleBorder(),
           onPressed: () {
-            GoRouter.of(context).pushNamed('addProduct');
+            GoRouter.of(context).goNamed('addProduct');
           },
           child: const Icon(Icons.add, color: Colors.white)),
     );
