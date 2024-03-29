@@ -23,8 +23,8 @@ class ProductModel extends Product {
     return ProductModel(
       id: json['_id'],
       image: json['image'],
-      rating: json['rating']['rate'],
-      price: json['price'],
+      rating: double.tryParse((json['rating']['rate']).toString()) ?? 0.0,
+      price: double.tryParse((json['price']).toString()) ?? 0.0,
       title: json['title'],
       category: json['category'],
       description: json['description'],

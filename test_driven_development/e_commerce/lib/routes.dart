@@ -18,7 +18,7 @@ GoRouter router = GoRouter(
         name: 'addProduct',
         path: '/products/new',
         pageBuilder: (context, state) {
-          return const MaterialPage(child: ProductAdd());
+          return MaterialPage(child: ProductAdd());
         }),
     GoRoute(
         name: 'updateProduct',

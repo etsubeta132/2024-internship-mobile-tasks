@@ -74,18 +74,18 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     }
   }
 
-  @override
-  Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
-    final Uri url = Uri.parse('${BASE_URL}');
-    final response = await client.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(product.toJson()));
-    if (response.statusCode == 201) {
-      return ProductModel.fromJson(json.decode(response.body)['product']);
-    } else {
-      throw ServerException();
-    }
-  }
+  // @override
+  // Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
+  //   final Uri url = Uri.parse('${BASE_URL}');
+  //   final response = await client.post(url,
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: json.encode(product.toJson()));
+  //   if (response.statusCode == 201) {
+  //     return ProductModel.fromJson(json.decode(response.body)['product']);
+  //   } else {
+  //     throw ServerException();
+  //   }
+  // }
 
   // @override
   // Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
@@ -120,44 +120,48 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   //     throw ServerException();
   //   }
   // }
-  // @override
-  // Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
-  //   final Uri url = Uri.parse(BASE_URL);
-  //   final request = http.MultipartRequest('POST', url);
+  @override
+  Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
+    final Uri url = Uri.parse(BASE_URL);
+    final request = http.MultipartRequest('POST', url);
 
-  //   // Set headers (if needed)
-  //   request.headers['Content-Type'] = 'multipart/form-data';
+    // Set headers (if needed)
+    request.headers['Content-Type'] = 'multipart/form-data';
 
-  //   // Add product data as fields (if needed)
+    // Add product data as fields (if needed)
 
-  //   request.fields['title'] = product.title;
-  //   // request.fields['rating'] = product.rating.toString();
-  //   request.fields['price'] = product.price.toString();
-  //   request.fields['category'] = product.category;
+    request.fields['title'] = product.title;
+    // request.fields['rating'] = product.rating.toString();
+    request.fields['price'] = product.price.toString();
+    request.fields['category'] = product.category;
+    request.fields['description'] = product.description;
 
-  //   // Add image file
-  //   if (imageFile != null) {
-  //     final imageStream =
-  //         http.ByteStream(Stream.castFrom(imageFile.openRead()));
-  //     final imageLength = await imageFile.length();
-  //     final imageUpload = http.MultipartFile(
-  //       'image', // Field name on the server
-  //       imageStream,
-  //       imageLength,
-  //       filename: 'product_image.jpg', // Specify a filename for the image
-  //     );
-  //     request.files.add(imageUpload);
-  //   }
 
-  //   final response = await request.send();
-  //   print(response.statusCode);
-  //   if (response.statusCode == 201) {
-  //     final responseBody = await response.stream.bytesToString();
-  //     return ProductModel.fromJson(json.decode(responseBody)['product']);
-  //   } else {
-  //     throw ServerException();
-  //   }
-  // }
+
+    // Add image file
+    if (imageFile != null) {
+      final imageStream =
+          http.ByteStream(Stream.castFrom(imageFile.openRead()));
+      final imageLength = await imageFile.length();
+      final imageUpload = http.MultipartFile(
+        'image', // Field name on the server
+        imageStream,
+        imageLength,
+        filename: 'product_image.jpg', // Specify a filename for the image
+      );
+      request.files.add(imageUpload);
+    }
+
+    final response = await request.send();
+    print(response.statusCode);
+    print( response.stream.bytesToString());
+    if (response.statusCode == 201) {
+      final responseBody = await response.stream.bytesToString();
+      return ProductModel.fromJson(json.decode(responseBody)['product']);
+    } else {
+      throw ServerException();
+    }
+  }
 
   @override
   Future<String> deleteProduct(String id) async {

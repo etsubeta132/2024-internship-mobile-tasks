@@ -4,7 +4,6 @@ import 'package:e_commerce/core/util/pick_image.dart';
 import 'package:e_commerce/features/product/data/models/product_model.dart';
 import 'package:e_commerce/features/product/presentation/bloc/product_bloc.dart';
 import 'package:e_commerce/features/product/presentation/widgets/loading.dart';
-import 'package:e_commerce/features/product/presentation/widgets/message_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,13 +16,15 @@ class ProductAdd extends StatefulWidget {
   final double initialPrice;
   final String initialDescription;
 
-  const ProductAdd({
+  ProductAdd({
     super.key,
     this.initialTitle = '',
     this.initialCategory = '',
     this.initialPrice = 0.0,
     this.initialDescription = '',
   });
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   @override
   _ProductFormState createState() => _ProductFormState();
@@ -42,11 +43,18 @@ class _ProductFormState extends State<ProductAdd> {
         _descriptionController.text == '' ||
         _priceController.text == '') {
       return false;
-    }else{
-       return true;
+    } else {
+      return true;
     }
   }
 
+  String? formValidator(String? field) {
+    if (_titleController.text == '') {
+      return "Empty field not allowed";
+    }
+    return null;
+  }
+   
   @override
   void initState() {
     super.initState();
@@ -62,7 +70,7 @@ class _ProductFormState extends State<ProductAdd> {
         id: const Uuid().v4(),
         image:
             "https://media.istockphoto.com/id/1136422297/photo/face-cream-serum-lotion-moisturizer-and-sea-salt-among-bamboo-leaves.jpg?s=612x612&w=0&k=20&c=mwzWVrDvJTkHlVf-8RL49Hs5xjuv1TrYcBW4DnWVt-0=",
-        rating: 0,
+        rating: 0.0,
         price: double.tryParse(_priceController.text) ?? 0,
         title: _titleController.text,
         category: _catagoryController.text,
@@ -129,7 +137,6 @@ class _ProductFormState extends State<ProductAdd> {
           listener: (context, state) {
             if (state is ProductActionSuccess) {
               // Handle success state
-              // Handle success state
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
               Future.delayed(const Duration(seconds: 2));
@@ -155,7 +162,10 @@ class _ProductFormState extends State<ProductAdd> {
   Widget _buildForm(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Column(
+      child: Form(
+        key:widget._formKey,
+
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -168,7 +178,7 @@ class _ProductFormState extends State<ProductAdd> {
               child: GestureDetector(
                 onTap: _pickImage,
                 child: _selectedImagePath != null
-                    ? Image.network(_selectedImagePath!, fit: BoxFit.fill)
+                    ? Image.file(File(_selectedImagePath!), fit: BoxFit.fill)
                     : const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -185,8 +195,10 @@ class _ProductFormState extends State<ProductAdd> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('name: '),
-              TextField(
+              TextFormField(
                 controller: _titleController,
+                validator: formValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: inputDecoration(),
               ),
             ],
@@ -196,8 +208,10 @@ class _ProductFormState extends State<ProductAdd> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Catagory: '),
-              TextField(
+              TextFormField(
                 controller: _catagoryController,
+                validator: formValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: inputDecoration(),
               ),
             ],
@@ -207,8 +221,10 @@ class _ProductFormState extends State<ProductAdd> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Price: '),
-              TextField(
+              TextFormField(
                 controller: _priceController,
+                validator: formValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color.fromRGBO(243, 243, 243, 1),
@@ -229,8 +245,10 @@ class _ProductFormState extends State<ProductAdd> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Description: '),
-              TextField(
+              TextFormField(
                 controller: _descriptionController,
+                validator: formValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: inputDecoration(),
                 maxLines: 5,
               ),
@@ -249,12 +267,11 @@ class _ProductFormState extends State<ProductAdd> {
                 if (isValid()) {
                   uploadProduct(context);
                   reset();
-                }else{
+                } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('please fill all the forms'),
-                      backgroundColor: Colors.red,
-                    ));
-
+                    content: Text('please fill all the forms'),
+                    backgroundColor: Colors.red,
+                  ));
                 }
               },
               child: const Text('ADD')),
@@ -271,7 +288,7 @@ class _ProductFormState extends State<ProductAdd> {
               },
               child: const Text('RESET')),
         ],
-      ),
+      )),
     );
   }
 }

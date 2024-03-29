@@ -9,8 +9,11 @@ import 'injection_container.dart';
 
 
 void main() async {
- await  di.init();
-  runApp(const Ecommerce());
+    WidgetsFlutterBinding.ensureInitialized();
+    
+    await  di.init();
+    
+    runApp(const Ecommerce());
 }
 
 class Ecommerce extends StatelessWidget {

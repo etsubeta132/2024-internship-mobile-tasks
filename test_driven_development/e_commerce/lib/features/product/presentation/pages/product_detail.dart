@@ -2,7 +2,6 @@
 import 'package:e_commerce/features/product/domain/entities/product.dart';
 import 'package:e_commerce/features/product/presentation/bloc/bloc.dart';
 import 'package:e_commerce/features/product/presentation/bloc/product_bloc.dart';
-import 'package:e_commerce/features/product/presentation/widgets/curved_rec_button.dart';
 import 'package:e_commerce/features/product/presentation/widgets/loading.dart';
 import 'package:e_commerce/features/product/presentation/widgets/message_display.dart';
 import 'package:e_commerce/features/product/presentation/widgets/product_item.dart';
@@ -62,8 +61,11 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   Widget _buildProductDetail(BuildContext context, Product product) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
@@ -83,89 +85,75 @@ class _ProductDetailState extends State<ProductDetail> {
                   )),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Size: ",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black,
-                      decoration: TextDecoration.none),
-                ),
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 70,
-                  width: double.infinity,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: 7,
-                      itemBuilder: (context, index) {
-                        bool isSelected = (index == selectedIndex);
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () => tapped(index),
-                            child: Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(
-                                      offset: Offset(4.0, 4.0),
-                                      blurRadius: 1.0,
-                                      spreadRadius: 1.0,
-                                      color:
-                                          Color.fromARGB(255, 236, 234, 234)),
-                                ],
-                                borderRadius: BorderRadius.circular(8),
-                                color: isSelected
-                                    ? const Color.fromRGBO(63, 81, 243, 1)
-                                    : Colors.white,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Center(
-                                  child: Text(
-                                    (index + currentNumber).toString(),
-                                    
-                                    style: TextStyle(
-                                        decoration:  TextDecoration.none,
-                                        fontSize: 14,
-                                        color: isSelected
-                                            ? Colors.white
-                                            : Colors.black
-                                          ),
-                                  ),
-                                ),
-                              ),
+          const Text(
+            "Size: ",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black,
+                decoration: TextDecoration.none),
+          ),
+          SizedBox(
+            height: 70,
+            width: double.infinity,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  bool isSelected = (index == selectedIndex);
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () => tapped(index),
+                      child: Container(
+                        width: 50,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(4.0, 4.0),
+                                blurRadius: 1.0,
+                                spreadRadius: 1.0,
+                                color: Color.fromARGB(255, 236, 234, 234)),
+                          ],
+                          borderRadius: BorderRadius.circular(8),
+                          color: isSelected
+                              ? const Color.fromRGBO(63, 81, 243, 1)
+                              : Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Center(
+                            child: Text(
+                              (index + currentNumber).toString(),
+                              style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  fontSize: 14,
+                                  color:
+                                      isSelected ? Colors.white : Colors.black),
                             ),
                           ),
-                        );
-                      }),
-                ),
-              ],
-            ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-              child: Container(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Text(
-                    // ! product description
-                    product.description,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        decoration: TextDecoration.none),
-                  )),
-            ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: Container(
+                height: 60,
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(
+                  // ! product description
+                  product.description,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      decoration: TextDecoration.none),
+                )),
           ),
           Container(
             padding: const EdgeInsets.all(8),
@@ -213,11 +201,11 @@ class _ProductDetailState extends State<ProductDetail> {
                   },
                   child: const Text('UPDATE'),
                 ),
-                const SizedBox(height: 8)
               ],
             ),
           )
         ],
-      );
+      )),
+    );
   }
 }
