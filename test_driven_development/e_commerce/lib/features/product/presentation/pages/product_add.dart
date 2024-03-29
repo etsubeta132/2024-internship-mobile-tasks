@@ -140,6 +140,7 @@ class _ProductFormState extends State<ProductAdd> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
               Future.delayed(const Duration(seconds: 2));
+              
             } else if (state is ProductActionFailer) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text('Product Add Failed!'),

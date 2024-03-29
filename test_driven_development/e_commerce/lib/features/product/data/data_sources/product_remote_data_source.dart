@@ -125,10 +125,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final Uri url = Uri.parse(BASE_URL);
     final request = http.MultipartRequest('POST', url);
 
-    // Set headers (if needed)
     request.headers['Content-Type'] = 'multipart/form-data';
 
-    // Add product data as fields (if needed)
 
     request.fields['title'] = product.title;
     // request.fields['rating'] = product.rating.toString();
@@ -144,10 +142,10 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           http.ByteStream(Stream.castFrom(imageFile.openRead()));
       final imageLength = await imageFile.length();
       final imageUpload = http.MultipartFile(
-        'image', // Field name on the server
+        'image', 
         imageStream,
         imageLength,
-        filename: 'product_image.jpg', // Specify a filename for the image
+        filename: 'product_image.jpg', 
       );
       request.files.add(imageUpload);
     }
@@ -185,7 +183,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final response = await client.patch(url,
         headers: {'Content-Type': 'application/json'},
         body: json.encode(product.toJson()));
-    print(response.body);
+        
     if (response.statusCode == 200) {
       final Map<String, dynamic> responceBody = json.decode(response.body);
       return ProductModel.fromJson(responceBody['product']);

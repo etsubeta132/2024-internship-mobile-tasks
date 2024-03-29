@@ -156,8 +156,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 )),
           ),
           Container(
-            padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+            margin: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

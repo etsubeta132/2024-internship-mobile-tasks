@@ -42,25 +42,5 @@ class Ecommerce extends StatelessWidget {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     theme: ThemeData(
-  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-  //       useMaterial3: true,
-  //       fontFamily: 'Poppins',
-  //     ),
-  //    home:BlocProvider(
-  //       create: (context) => ProductBloc(
-  //         // Inject dependencies into the ProductBloc constructor
-  //         getOneProductUsecase: sl(),
-  //         addProductUsecase: sl(),
-  //         updateProductUsecase: sl(),
-  //         deleteProductUsecase: sl(),
-  //         getproductsUsecase: sl(),
-  //       ),
-  //       child: ProductList(),
-  //   ));
-  // }
+ 
 }
