@@ -21,7 +21,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  @override
+
+   @override
   void initState() {
     super.initState();
     context.read<ProductBloc>().add(FetchAllProductsEvent(searchQuery: widget.searchQuery));
@@ -29,54 +30,23 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     DateTime date = DateTime.now();
     String formattedDate = DateFormat('MMMM d,yyyy').format(date);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(20),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // custom widget curved rectangle
-                      const CurvedRecButton(
-                        text: 'P',
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                        height: 8,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(formattedDate),
-                          const Text('Hello, Etsubdink')
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const Padding(
-                    padding: EdgeInsets.only(right: 16),
-                    child: Icon(
-                      Icons.notification_add_rounded,
-                    ))
-              ],
-            ),
+          leading: IconButton(
+            color: Colors.blue,
+            icon: const Icon(Icons.arrow_back_ios_rounded),
+            onPressed: () {
+              GoRouter.of(context).goNamed('productList');
+            },
           ),
+          title: const Text('Search Result'),
         ),
-      ),
-      body: BlocConsumer<ProductBloc, ProductState>(
+      
+      body:BlocConsumer<ProductBloc, ProductState>(
         listener: (BuildContext context, ProductState state) {
           if (state is ProductActionFailer) {
             const MessageDisplay(
@@ -100,25 +70,21 @@ class _SearchPageState extends State<SearchPage> {
                     width: 16,
                     height: 16,
                   ),
-                  const SizedBox(
-                    child: Text(
-                      "Search results",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
+            const SizedBox(
                     width: 8,
                     height: 8,
                   ),
                   Expanded(
                     child: ListView.builder(
-                        itemCount: state.products.length,
-                        itemBuilder: (context, index) {
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
                           Product product = state.products[index];
                           return GestureDetector(
                             onTap: () {
-                              GoRouter.of(context).goNamed('productDetail',
-                                  pathParameters: {'id': product.id});
+                              GoRouter.of(context).goNamed(
+                                'productDetail',
+                                pathParameters:{'id':product.id}
+                              );
                             },
                             child: Container(
                               padding: const EdgeInsets.all(8),
@@ -139,4 +105,10 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
+  
 }
+
+
+
+
+

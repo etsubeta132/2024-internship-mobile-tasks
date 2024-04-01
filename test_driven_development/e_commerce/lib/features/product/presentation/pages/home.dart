@@ -112,18 +112,12 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Expanded(
                         child: TextField(
+                        
                           controller: _searchController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'Search products...',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 10
-                              )
-                            )
-                          ),
-                        ),
-                      ),
-                      IconButton(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                            suffixIcon: IconButton(
                         icon: const Icon(Icons.arrow_forward_outlined),
                         onPressed: () {
                           final String searchValue = _searchController.text;
@@ -133,6 +127,16 @@ class _HomePageState extends State<HomePage> {
                           });
                         },
                       ),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 10
+                              )
+                            )
+                          ),
+                      
+                        ),
+                      ),
+            
                      IconButton(
                           onPressed: () {
                             showDialog(
@@ -142,7 +146,6 @@ class _HomePageState extends State<HomePage> {
                                   onFilter: (category, productValue) {
                                     _category = category;
                                     _productValue = productValue;
-
                                   },
                                 );
                               },

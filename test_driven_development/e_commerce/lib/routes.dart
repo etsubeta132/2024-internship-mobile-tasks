@@ -29,6 +29,7 @@ GoRouter router = GoRouter(
           final String searchQuery = params['searchQuery'];
           return MaterialPage(child: SearchPage(
             searchQuery:searchQuery
+            
           ));
         }),
     GoRoute(

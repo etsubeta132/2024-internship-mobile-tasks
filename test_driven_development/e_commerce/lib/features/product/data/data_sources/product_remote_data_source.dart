@@ -175,16 +175,11 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       queryParams['title'] = searchQuery;
     }
     url = url.replace(queryParameters: queryParams);
-    print(url);
-    print(url);
-    print(url);
 
     final response = await client.get(
       url,
       headers: {'Content-Type': 'application/json'},
     );
-    print(response.statusCode);
-    print(response.body);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
