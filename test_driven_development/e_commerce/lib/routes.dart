@@ -2,6 +2,7 @@ import 'package:e_commerce/features/product/presentation/pages/home.dart';
 import 'package:e_commerce/features/product/presentation/pages/product_detail.dart';
 import 'package:e_commerce/features/product/presentation/pages/product_add.dart';
 import 'package:e_commerce/features/product/presentation/pages/product_edit.dart';
+import 'package:e_commerce/features/product/presentation/pages/search.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,6 +20,16 @@ GoRouter router = GoRouter(
         path: '/products/new',
         pageBuilder: (context, state) {
           return MaterialPage(child: ProductAdd());
+        }),
+         GoRoute(
+        name: 'searchResults',
+        path: '/products/search',
+        pageBuilder: (context, state) {
+          final Map<String, dynamic> params = state.uri.queryParameters;
+          final String searchQuery = params['searchQuery'];
+          return MaterialPage(child: SearchPage(
+            searchQuery:searchQuery
+          ));
         }),
     GoRoute(
         name: 'updateProduct',

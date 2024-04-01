@@ -34,6 +34,8 @@ abstract class ProductRemoteDataSource {
   ///
   /// Throws a [ServerException] for all error codes.
   Future<String> deleteProduct(String id);
+
+ Future<List<ProductModel>> fetchProducts(String searchQuery);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -74,52 +76,6 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     }
   }
 
-  // @override
-  // Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
-  //   final Uri url = Uri.parse('${BASE_URL}');
-  //   final response = await client.post(url,
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: json.encode(product.toJson()));
-  //   if (response.statusCode == 201) {
-  //     return ProductModel.fromJson(json.decode(response.body)['product']);
-  //   } else {
-  //     throw ServerException();
-  //   }
-  // }
-
-  // @override
-  // Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
-  //   var url = Uri.parse(BASE_URL);
-  //   var request = http.MultipartRequest('POST', url);
-  //   request.fields["title"] = product.title;
-  //   request.fields["description"] = product.description;
-  //   request.fields["category"] = product.category;
-  //   request.fields["price"] = product.price.toString();
-  //   if (imageFile != null) {
-  //       var multipartImage = http.MultipartFile.fromBytes(
-  //         contentType: MediaType('image', imageFile.path.split(".").last),
-  //         "images",
-  //         imageFile.readAsBytesSync(), // Read bytes directly from file
-  //         filename: imageFile.path,
-  //       );
-  //       request.files.add(multipartImage);
-  // }
-  //   var imageByteLength = request.contentLength;
-  //   Map<String, String> headers = {
-  //     'Content-Type': 'application/json; charset=UTF-8',
-  //   };
-
-  //   request.headers.addAll(headers);
-  //   final response = await request.send();
-  //   var res = await http.Response.fromStream(response);
-  //   print(res.body);
-  //   print(res.statusCode);
-  //   if (res.statusCode == 201) {
-  //     return ProductModel.fromJson(json.decode(res.body)["product"]);
-  //   } else {
-  //     throw ServerException();
-  //   }
-  // }
   @override
   Future<ProductModel> addProduct(ProductModel product, File? imageFile) async {
     final Uri url = Uri.parse(BASE_URL);
@@ -171,24 +127,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     }
   }
 
-//   @override
-//   Future<ProductModel> updateProduct(
-//       ProductModel product, String id, File? imageFile) async {
-//     final Uri url = Uri.parse('${BASE_URL}/$id');
-
-//     final response = await client.patch(url,
-//         headers: {'Content-Type': 'application/json'},
-//         body: json.encode(product.toJson()));
-
-//     if (response.statusCode == 200) {
-//       final Map<String, dynamic> responceBody = json.decode(response.body);
-//       return ProductModel.fromJson(responceBody['product']);
-//     } else {
-//       throw ServerException();
-//     }
-//   }
   @override
-  Future<ProductModel> updateProduct(ProductModel product, String id, File? imageFile) async {
+  Future<ProductModel> updateProduct(
+      ProductModel product, String id, File? imageFile) async {
     final Uri url = Uri.parse('$BASE_URL/$id');
     final request = http.MultipartRequest('PATCH', url);
 
@@ -219,6 +160,38 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     if (response.statusCode == 200) {
       final responseBody = await response.stream.bytesToString();
       return ProductModel.fromJson(json.decode(responseBody)['product']);
+    } else {
+      throw ServerException();
+    }
+  }
+  
+  @override
+  Future<List<ProductModel>> fetchProducts(String searchQuery) async {
+    Uri url = Uri.parse('${BASE_URL}');
+    Map<String, dynamic> queryParams = {};
+
+    // Add search query parameter if available
+    if (searchQuery.isNotEmpty) {
+      queryParams['title'] = searchQuery;
+    }
+    url = url.replace(queryParameters: queryParams);
+    print(url);
+    print(url);
+    print(url);
+
+    final response = await client.get(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final List<dynamic> productsJson = responseData['products'];
+      final res =
+          productsJson.map((json) => ProductModel.fromJson(json)).toList();
+      return res;
     } else {
       throw ServerException();
     }

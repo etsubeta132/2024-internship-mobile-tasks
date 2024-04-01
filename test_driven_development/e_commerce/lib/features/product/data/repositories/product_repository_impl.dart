@@ -100,19 +100,19 @@ class ProductRepositoryImpl implements ProductRepository {
 
 
 
-// Future<Either<Failure, Product>> _CallProductMethods () async {
-  
-//     if (await networkInfo.isConnected) {
-//       try {
-//         final product = await remoteDataSource.updateProduct(id);
-//         return Right(product);
-//       } on ServerException {
-//         return Left(ServerFailure());
-//       }
-//     } else {
-//       return Left(ServerFailure());
-//     }
-//   }
+ @override
+  Future<Either<Failure, List<ProductModel>>> fetchProducts(String searchQuery) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteProducts = await remoteDataSource.fetchProducts(searchQuery);
+        return Right(remoteProducts);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+       return Left(ServerFailure());
+    }
+  }
 
 
 }

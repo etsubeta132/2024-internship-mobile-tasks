@@ -19,11 +19,21 @@ class GetAllProductsEvent extends ProductEvent {
   List<Object?> get props => [];
 }
 
+class FetchAllProductsEvent extends ProductEvent {
+  final String searchQuery;
+
+  FetchAllProductsEvent({required this.searchQuery});
+
+  @override
+  List<Object?> get props => [searchQuery];
+}
+
+
 class AddProductEvent extends ProductEvent {
   final ProductModel product;
   final File? imageFile;
 
-  AddProductEvent({required this.product,this.imageFile});
+  AddProductEvent({required this.product, this.imageFile});
 
   @override
   List<Object?> get props => [product, imageFile];

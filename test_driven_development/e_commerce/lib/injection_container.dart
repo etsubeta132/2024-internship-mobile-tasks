@@ -7,6 +7,7 @@ import 'package:e_commerce/features/product/domain/usecases/add_product_usecase.
 import 'package:e_commerce/features/product/domain/usecases/delete_product_usecase.dart';
 import 'package:e_commerce/features/product/domain/usecases/get_one_product_usecase.dart';
 import 'package:e_commerce/features/product/domain/usecases/get_products_usecase.dart';
+import 'package:e_commerce/features/product/domain/usecases/search_usecase.dart';
 import 'package:e_commerce/features/product/domain/usecases/update_product_usecase.dart';
 import 'package:e_commerce/features/product/presentation/bloc/product_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -23,7 +24,9 @@ Future<void> init() async {
       addProductUsecase: sl(),
       updateProductUsecase: sl(),
       deleteProductUsecase: sl(),
-      getproductsUsecase: sl()));
+      getproductsUsecase: sl(),
+      fetchProductsUseCase: sl()),
+      );
 
   // Use cases
   sl.registerLazySingleton(() => GetProductsUseCase(sl()));
@@ -31,6 +34,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddProductUseCase(sl()));
   sl.registerLazySingleton(() => UpdateProductUseCase(sl()));
   sl.registerLazySingleton(() => DeleteProductUseCase(sl()));
+  sl.registerLazySingleton(() => FetchProductsUseCase(sl()));
 
   //  Repository
   sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
@@ -53,7 +57,7 @@ Future<void> init() async {
     () async => await SharedPreferences.getInstance(),
   );
   await GetIt.instance.isReady<SharedPreferences>();
-  
+
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => InternetConnection());
 }

@@ -30,7 +30,8 @@ class Ecommerce extends StatelessWidget {
           addProductUsecase: sl(),
          updateProductUsecase: sl(), 
          deleteProductUsecase: sl(), 
-         getproductsUsecase: sl()),
+         getproductsUsecase: sl(),
+         fetchProductsUseCase: sl()),
 
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

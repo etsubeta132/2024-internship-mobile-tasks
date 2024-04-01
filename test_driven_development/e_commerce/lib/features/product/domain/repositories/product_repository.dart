@@ -16,4 +16,6 @@ abstract class ProductRepository {
   
   Future<Either<Failure,String>> deleteProduct(String id);
 
+  Future<Either<Failure,List<ProductModel>>> fetchProducts(String searchQuery);
+
 }

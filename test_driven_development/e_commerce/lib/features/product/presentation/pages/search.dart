@@ -1,7 +1,6 @@
 import 'package:e_commerce/features/product/domain/entities/product.dart';
 import 'package:e_commerce/features/product/presentation/bloc/product_bloc.dart';
 import 'package:e_commerce/features/product/presentation/widgets/curved_rec_button.dart';
-import 'package:e_commerce/features/product/presentation/widgets/filter_card.dart';
 import 'package:e_commerce/features/product/presentation/widgets/loading.dart';
 import 'package:e_commerce/features/product/presentation/widgets/message_display.dart';
 import 'package:e_commerce/features/product/presentation/widgets/product_item.dart';
@@ -12,21 +11,20 @@ import 'package:intl/intl.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class SearchPage extends StatefulWidget {
+  final String searchQuery;
+
+  const SearchPage({super.key, required this.searchQuery});
+
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final TextEditingController _searchController = TextEditingController();
-  String _category = '';
-  double _productValue = 0.0;
-
+class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    context.read<ProductBloc>().add(GetAllProductsEvent());
+    context.read<ProductBloc>().add(FetchAllProductsEvent(searchQuery: widget.searchQuery));
   }
 
   @override
@@ -104,53 +102,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(
                     child: Text(
-                      "Available Products",
+                      "Search results",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _searchController,
-                          decoration: const InputDecoration(
-                            hintText: 'Search products...',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 10
-                              )
-                            )
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward_outlined),
-                        onPressed: () {
-                          final String searchValue = _searchController.text;
-                          GoRouter.of(context)
-                              .goNamed('searchResults', queryParameters: {
-                            'searchQuery': searchValue,
-                          });
-                        },
-                      ),
-                     IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return FilterCard(
-                                  onFilter: (category, productValue) {
-                                    _category = category;
-                                    _productValue = productValue;
-
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          icon: const Icon(Icons.filter_alt),
-                        ),
-                    ],
                   ),
                   const SizedBox(
                     width: 8,
@@ -183,13 +137,6 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromRGBO(63, 81, 243, 1),
-          shape: const CircleBorder(),
-          onPressed: () {
-            GoRouter.of(context).goNamed('addProduct');
-          },
-          child: const Icon(Icons.add, color: Colors.white)),
     );
   }
 }
