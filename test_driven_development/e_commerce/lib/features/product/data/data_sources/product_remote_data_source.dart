@@ -127,14 +127,11 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
     request.headers['Content-Type'] = 'multipart/form-data';
 
-
     request.fields['title'] = product.title;
     // request.fields['rating'] = product.rating.toString();
     request.fields['price'] = product.price.toString();
     request.fields['category'] = product.category;
     request.fields['description'] = product.description;
-
-
 
     // Add image file
     if (imageFile != null) {
@@ -142,17 +139,16 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           http.ByteStream(Stream.castFrom(imageFile.openRead()));
       final imageLength = await imageFile.length();
       final imageUpload = http.MultipartFile(
-        'image', 
+        'image',
         imageStream,
         imageLength,
-        filename: 'product_image.jpg', 
+        filename: 'product_image.jpg',
       );
       request.files.add(imageUpload);
     }
 
     final response = await request.send();
-    print(response.statusCode);
-    print( response.stream.bytesToString());
+
     if (response.statusCode == 201) {
       final responseBody = await response.stream.bytesToString();
       return ProductModel.fromJson(json.decode(responseBody)['product']);
@@ -175,18 +171,54 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     }
   }
 
-  @override
-  Future<ProductModel> updateProduct(
-      ProductModel product, String id, File? imageFile) async {
-    final Uri url = Uri.parse('${BASE_URL}/$id');
+//   @override
+//   Future<ProductModel> updateProduct(
+//       ProductModel product, String id, File? imageFile) async {
+//     final Uri url = Uri.parse('${BASE_URL}/$id');
 
-    final response = await client.patch(url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(product.toJson()));
-        
+//     final response = await client.patch(url,
+//         headers: {'Content-Type': 'application/json'},
+//         body: json.encode(product.toJson()));
+
+//     if (response.statusCode == 200) {
+//       final Map<String, dynamic> responceBody = json.decode(response.body);
+//       return ProductModel.fromJson(responceBody['product']);
+//     } else {
+//       throw ServerException();
+//     }
+//   }
+  @override
+  Future<ProductModel> updateProduct(ProductModel product, String id, File? imageFile) async {
+    final Uri url = Uri.parse('$BASE_URL/$id');
+    final request = http.MultipartRequest('PATCH', url);
+
+    request.headers['Content-Type'] = 'multipart/form-data';
+
+    request.fields['title'] = product.title;
+    // request.fields['rating'] = product.rating.toString();
+    request.fields['price'] = product.price.toString();
+    request.fields['category'] = product.category;
+    request.fields['description'] = product.description;
+
+    // Add image file
+    if (imageFile != null) {
+      final imageStream =
+          http.ByteStream(Stream.castFrom(imageFile.openRead()));
+      final imageLength = await imageFile.length();
+      final imageUpload = http.MultipartFile(
+        'image',
+        imageStream,
+        imageLength,
+        filename: 'product_image.jpg',
+      );
+      request.files.add(imageUpload);
+    }
+
+    final response = await request.send();
+
     if (response.statusCode == 200) {
-      final Map<String, dynamic> responceBody = json.decode(response.body);
-      return ProductModel.fromJson(responceBody['product']);
+      final responseBody = await response.stream.bytesToString();
+      return ProductModel.fromJson(json.decode(responseBody)['product']);
     } else {
       throw ServerException();
     }

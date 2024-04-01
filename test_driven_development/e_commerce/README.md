@@ -8,7 +8,7 @@ This Flutter project implements an Ecommerce feature using Clean Architecture pr
 
 ![Home Page](assets/home.png?raw=true "ui that shows home page ")
 ![Detail page](assets/product_detail.png?raw=true "ui that show product detail")
-![product form }](assets/product_add.png?raw=true "ui fo rthe form to be filled")
+![product form](assets/product_add.png?raw=true "ui fo rthe form to be filled")
 
 
 # Architecture
